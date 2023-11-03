@@ -1,6 +1,5 @@
 # Open Quantum Design
-Computers are composed of many layers. At the lowest level are transistors and bits, which represent and process the information. 
-
+A quick overview of quantum computing concepts relevant to OQD, aimed towards a broad audience.
 
 ## Quantum computers
 Quantum computers utilize the effects of quantum mechanics to process information. 
