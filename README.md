@@ -80,9 +80,21 @@ Use cases range from developing better battery materials,
 * **Others**: Photonic Inc., 
 
 ## Open source quantum technologies
-A variety of open source projects have emerged with quantum technologies. 
+A variety of open source projects have emerged with quantum technologies. [4]
+
+### Open software
+
+
+### Open hardware
+
+
+### User test facilities
+
+
 
 ## References
 * [1] Maslov, D., Nam, Y. & Kim, J. An Outlook for Quantum Computing [Point of View]. Proc. IEEE 107, 5–10 (2019).
 * [2] Pogorelov, I. et al. Compact Ion-Trap Quantum Computing Demonstrator. PRX Quantum 2, 020343 (2021).
 * [3] Blatt, R. & Wineland, D. Entangled states of trapped atomic ions. Nature 453, 1008–1015 (2008).
+* [4] Shammah, N. et al. Open Hardware in Quantum Technology. Preprint at https://doi.org/10.48550/arXiv.2309.17233 (2023).
+
