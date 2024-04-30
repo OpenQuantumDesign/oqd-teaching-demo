@@ -1,17 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { ReactNode } from "react";
+import { AnimatedLogoText } from "./Logo";
 
 interface sidebarProps {
   children?: ReactNode;
 }
 
-const Sidebar = ({ children }: sidebarProps) => {
-  type sidebarElement = {
-    endpoint: string;
-    title: string;
-    icon?: ReactNode;
-  };
+type sidebarElement = {
+  endpoint: string;
+  title: string;
+  icon?: ReactNode;
+};
 
+const Sidebar = ({ children }: sidebarProps) => {
   const elements: sidebarElement[] = [
     {
       endpoint: "/",
@@ -87,8 +88,8 @@ const Sidebar = ({ children }: sidebarProps) => {
           className="drawer-overlay"
         ></label>
         <ul className="menu min-h-full w-80 gap-3 bg-base-200 p-4 text-base-content">
-          <li>
-            <label className="pointer-events-none text-2xl">Menu</label>
+          <li className="w-48">
+            <AnimatedLogoText />
           </li>
           {elements.map((e, i) => (
             <li key={"element" + i}>
