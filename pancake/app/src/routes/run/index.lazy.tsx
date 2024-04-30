@@ -58,7 +58,7 @@ const Run = () => {
 
   const handleRemoveGate = (index: number) => {
     if (form.instructions.length == 1) {
-      return () => {};
+      return () => { };
     }
     return () => {
       setForm((prev) => {
@@ -74,6 +74,18 @@ const Run = () => {
     setImageURL("");
     setIsLoading(true);
     setError(false);
+
+    const result = await api
+      .request({
+        method: "POST",
+        url: "/api/run",
+        headers: { "Content-Type": "application/json" },
+        data: form,
+      })
+      .catch(() => {
+        setImageURL("");
+        setError(true);
+      });
 
     const url = await api
       .request({
