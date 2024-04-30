@@ -13,7 +13,7 @@ import matplotlib
 ########################################################################################
 
 from pancake.interface import Program
-from pancake.visualization import draw_program
+from pancake.visualization import draw_circuit
 
 ########################################################################################
 
@@ -44,7 +44,7 @@ async def run(request: Request, program: Program):
     matplotlib.rcParams["mathtext.fontset"] = "stix"
     matplotlib.rcParams["font.family"] = "STIXGeneral"
 
-    fig = draw_program(program=program)
+    fig = draw_circuit(circuit=program.circuit)
 
     buf = io.BytesIO()
     fig.savefig(buf, format="svg", bbox_inches="tight", transparent=True)

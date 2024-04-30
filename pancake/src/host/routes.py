@@ -33,7 +33,7 @@ async def run(request: Request, program: Program):
 
     for i in range(len(program.instructions) * 3):
         pattern_generator.step()
-        time.sleep(0.5)
+        time.sleep(1 / program.clock)
 
     pattern_generator.stop()
     pattern_generator.reset()

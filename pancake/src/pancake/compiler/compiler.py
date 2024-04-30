@@ -46,6 +46,9 @@ class PYNQCompiler(Transformer):
         return new_wave
 
     def visit_Program(self, model):
+        return self.visit(model.circuit)
+
+    def visit_Circuit(self, model):
         self.N = model.N
 
         gates = self.visit(model.instructions)

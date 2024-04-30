@@ -7,7 +7,7 @@ import numpy as np
 
 ########################################################################################
 
-from ..interface import Program
+from ..interface import Circuit
 from ..compiler import PYNQCompiler
 
 ########################################################################################
@@ -34,23 +34,23 @@ def _prepare_wave(wave):
     return t, new_wave
 
 
-def draw_program(*, program: Program = None, compiled_program=None):
-    if not (program is None or compiled_program is None):
+def draw_circuit(*, circuit: Circuit = None, compiled_circuit=None):
+    if not (circuit is None or compiled_circuit is None):
         raise ValueError(
-            "Inconsistency: program and compiled_program cannot be used simultaneously"
+            "Inconsistency: circuit and compiled_circuit cannot be used simultaneously"
         )
 
-    if program:
-        compiled_program = PYNQCompiler().visit(program)
+    if circuit:
+        compiled_circuit = PYNQCompiler().visit(circuit)
 
     fig = plt.figure(figsize=(16, 8))
     ax = fig.subplots(1, 1)
 
-    T = len(compiled_program["signal"][0][1]["wave"])
-    Nch = len(compiled_program["signal"][0]) - 1
+    T = len(compiled_circuit["signal"][0][1]["wave"])
+    Nch = len(compiled_circuit["signal"][0]) - 1
 
     for i in range(Nch):
-        t, wave = _prepare_wave(compiled_program["signal"][0][i + 1]["wave"])
+        t, wave = _prepare_wave(compiled_circuit["signal"][0][i + 1]["wave"])
 
         ax.plot(
             t,

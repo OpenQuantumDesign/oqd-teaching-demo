@@ -4,7 +4,7 @@ from pydantic import BaseModel, root_validator, NonNegativeInt
 
 ########################################################################################
 
-__all__ = ["Program", "UnaryGate", "BinaryGate"]
+__all__ = ["Program", "UnaryGate", "BinaryGate", "Circuit"]
 
 ########################################################################################
 
@@ -26,7 +26,7 @@ class BinaryGate(BaseModel):
         return values
 
 
-class Program(BaseModel):
+class Circuit(BaseModel):
     N: Literal[5] = 5
     instructions: List[Union[UnaryGate, BinaryGate]]
 
@@ -38,3 +38,8 @@ class Program(BaseModel):
             if isinstance(gate, BinaryGate) and gate.control >= values["N"]:
                 raise ValueError(f"Inconsistency: control exceeds N")
         return values
+
+
+class Program(BaseModel):
+    clock: float = 1.0
+    circuit: Circuit

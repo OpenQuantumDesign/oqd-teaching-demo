@@ -8,84 +8,75 @@ import { ChangeEvent, useState } from "react";
 import api from "../../lib/api";
 import Loading from "../../components/Loading";
 
-type gate = {
+type gateModel = {
   gate: string;
   target: number;
   control?: number;
 };
 
-type circuit = {
+type circuitModel = {
   N: number;
-  instructions: gate[];
+  instructions: gateModel[];
+};
+
+type programModel = {
+  clock: number;
+  circuit: circuitModel;
 };
 
 const Run = () => {
-  const [form, setForm] = useState<circuit>({
-    N: 5,
-    instructions: [{ gate: "I", target: 0 }],
-  });
+  const [clock, setClock] = useState(1);
 
-  const [imageURL, setImageURL] = useState("");
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const handleClockChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setClock(parseFloat(event.target.value));
+  };
 
-  const handleChange = (index: number) => {
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const [instructions, setInstructions] = useState<gateModel[]>([
+    { gate: "I", target: 0 },
+  ]);
+
+  const handleInstructionsChange = (index: number) => {
     return (event: ChangeEvent<HTMLInputElement>) => {
-      let new_instructions: Record<string, any>[] = [...form.instructions];
-      new_instructions[index][event.target.name] = event.target.value;
+      let new_instructions: Record<string, any>[] = [...instructions];
+      new_instructions[index][event.target.name] =
+        event.target.name === "gate"
+          ? event.target.value
+          : parseInt(event.target.value);
 
-      setForm((prev) => {
-        return { N: prev.N, instructions: new_instructions as gate[] };
-      });
+      setInstructions(new_instructions as gateModel[]);
     };
   };
 
   const handleAddSingleQubitGate = () => {
-    let new_instructions: gate[] = [...form.instructions];
-    new_instructions.push({ gate: "I", target: 0 });
-    setForm((prev) => {
-      return { N: prev.N, instructions: new_instructions };
-    });
+    setInstructions([...instructions, { gate: "I", target: 0 }]);
   };
 
   const handleAddTwoQubitGate = () => {
-    let new_instructions: gate[] = [...form.instructions];
-    new_instructions.push({ gate: "CNOT", target: 0, control: 1 });
-    setForm((prev) => {
-      return { N: prev.N, instructions: new_instructions };
-    });
+    setInstructions([...instructions, { gate: "CNOT", target: 1, control: 0 }]);
   };
 
   const handleRemoveGate = (index: number) => {
-    if (form.instructions.length == 1) {
-      return () => { };
+    if (instructions.length == 1) {
+      return () => {};
     }
     return () => {
-      setForm((prev) => {
-        return {
-          N: prev.N,
-          instructions: prev.instructions.filter((e, i) => i != index),
-        };
-      });
+      setInstructions(instructions.filter((e, i) => i != index));
     };
   };
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const [imageURL, setImageURL] = useState("");
+  const [result, setResult] = useState("");
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     setImageURL("");
     setIsLoading(true);
     setError(false);
-
-    const result = await api
-      .request({
-        method: "POST",
-        url: "/api/run",
-        headers: { "Content-Type": "application/json" },
-        data: form,
-      })
-      .catch(() => {
-        setImageURL("");
-        setError(true);
-      });
 
     const url = await api
       .request({
@@ -93,7 +84,7 @@ const Run = () => {
         url: "/api/visualize",
         responseType: "blob",
         headers: { "Content-Type": "application/json" },
-        data: form,
+        data: program,
       })
       .then((response) => response.data)
       .then((data) => URL.createObjectURL(data))
@@ -102,11 +93,41 @@ const Run = () => {
         setError(true);
       });
 
+    const result = await api
+      .request({
+        method: "POST",
+        url: "/api/run",
+        headers: { "Content-Type": "application/json" },
+        data: program,
+      })
+      .then((response) => response.data)
+      .then((data) => JSON.stringify(JSON.parse(data), null, 2))
+      .catch(() => {
+        setImageURL("");
+        setError(true);
+      });
+
     if (url) {
       setImageURL(url);
     }
+
+    if (result) {
+      setResult(result);
+    }
+
     setIsLoading(false);
   };
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const program = {
+    clock: clock,
+    circuit: { N: 5, instructions: instructions },
+  } as programModel;
+
+  console.log(program);
+
+  ////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="flex flex-row flex-wrap gap-8">
@@ -126,7 +147,14 @@ const Run = () => {
           </button>
         </div>
         <div className="flex h-64 w-full flex-col gap-y-3 overflow-y-auto px-5">
-          {form.instructions.map((element, index) => (
+          <input
+            className="w-16 rounded bg-base-300 p-2 text-sm outline outline-0"
+            name="clock"
+            placeholder="clock"
+            value={clock}
+            onChange={handleClockChange}
+          />
+          {instructions.map((element, index) => (
             <div
               key={"gate" + index}
               className="flex flex-row items-center gap-3"
@@ -157,7 +185,7 @@ const Run = () => {
                     name={element2[0]}
                     placeholder={element2[0]}
                     value={element2[1]}
-                    onChange={handleChange(index)}
+                    onChange={handleInstructionsChange(index)}
                   />
                 </div>
               ))}
@@ -166,9 +194,9 @@ const Run = () => {
         </div>
         <div className="divider divider-vertical" />
         <div className="pl-5">
-          <p className="h-64 w-full cursor-text overflow-y-auto whitespace-pre bg-base-300 p-5">
-            {JSON.stringify(form, null, 2)}
-          </p>
+          <div className="card h-64 w-full cursor-text overflow-y-auto whitespace-pre bg-base-300 p-5 shadow-2xl">
+            {JSON.stringify(program, null, 2)}
+          </div>
         </div>
       </div>
       <div className="divider divider-horizontal">
@@ -214,6 +242,12 @@ const Run = () => {
                 />
               </svg>
               Error
+            </div>
+          )}
+          <div className="divider divider-vertical" />
+          {result && (
+            <div className="card h-64 w-full cursor-text overflow-y-auto whitespace-pre bg-base-300 p-5 shadow-2xl">
+              {result}
             </div>
           )}
         </div>

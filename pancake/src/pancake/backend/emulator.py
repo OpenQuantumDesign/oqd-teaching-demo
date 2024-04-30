@@ -29,6 +29,9 @@ gate_map = {
 
 class EmulatorCompiler(Transformer):
     def visit_Program(self, model):
+        return self.visit(model.circuit)
+
+    def visit_Circuit(self, model):
         self.N = model.N
 
         initial_state = functools.reduce(
