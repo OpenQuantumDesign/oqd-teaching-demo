@@ -75,6 +75,7 @@ const Run = () => {
 
   const handleSubmit = async () => {
     setImageURL("");
+    setResult("");
     setIsLoading(true);
     setError(false);
 
@@ -89,9 +90,13 @@ const Run = () => {
       .then((response) => response.data)
       .then((data) => URL.createObjectURL(data))
       .catch(() => {
-        setImageURL("");
         setError(true);
       });
+
+    if (error) {
+      setIsLoading(false);
+      return;
+    }
 
     const result = await api
       .request({
@@ -103,9 +108,13 @@ const Run = () => {
       .then((response) => response.data)
       .then((data) => JSON.stringify(JSON.parse(data), null, 2))
       .catch(() => {
-        setImageURL("");
         setError(true);
       });
+
+    if (error) {
+      setIsLoading(false);
+      return;
+    }
 
     if (url) {
       setImageURL(url);
@@ -215,11 +224,6 @@ const Run = () => {
       </div>
       <div className="flex flex-col place-content-center">
         <div className="py-5">
-          {imageURL && (
-            <div className="card w-[48rem] bg-base-300 p-5 shadow-2xl">
-              <img src={imageURL}></img>
-            </div>
-          )}
           {isLoading && (
             <div className="card w-[48rem] bg-base-300 p-5 shadow-2xl">
               <Loading />
@@ -244,8 +248,13 @@ const Run = () => {
               Error
             </div>
           )}
-          <div className="divider divider-vertical" />
-          {result && (
+          {imageURL && !error && !isLoading && (
+            <div className="card w-[48rem] bg-base-300 p-5 shadow-2xl">
+              <img src={imageURL}></img>
+            </div>
+          )}
+          {!error && !isLoading && <div className="divider divider-vertical" />}
+          {result && !error && !isLoading && (
             <div className="card h-64 w-full cursor-text overflow-y-auto whitespace-pre bg-base-300 p-5 shadow-2xl">
               {result}
             </div>
