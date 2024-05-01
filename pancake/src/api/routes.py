@@ -29,7 +29,10 @@ router = APIRouter()
 @router.post("/run")
 async def run(request: Request, program: Program):
     response = await request.app.state.async_client.request(
-        "POST", PYNQ_FASTAPI_ENDPOINT + "/api/pynq/run", data=program.json()
+        "POST",
+        PYNQ_FASTAPI_ENDPOINT + "/api/pynq/run",
+        data=program.json(),
+        timeout=None,
     )
     return json.loads(response.content)
 
@@ -40,7 +43,6 @@ async def run(request: Request, program: Program):
 
     matplotlib.rcParams["figure.figsize"] = (12, 8)
     matplotlib.rcParams["font.size"] = 20
-    matplotlib.rcParams["text.usetex"] = True
     matplotlib.rcParams["mathtext.fontset"] = "stix"
     matplotlib.rcParams["font.family"] = "STIXGeneral"
 
