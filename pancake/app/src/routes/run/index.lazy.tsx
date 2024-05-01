@@ -59,7 +59,7 @@ const Run = () => {
 
   const handleRemoveGate = (index: number) => {
     if (instructions.length == 1) {
-      return () => {};
+      return () => { };
     }
     return () => {
       setInstructions(instructions.filter((e, i) => i != index));
@@ -106,7 +106,6 @@ const Run = () => {
         data: program,
       })
       .then((response) => response.data)
-      .then((data) => JSON.stringify(JSON.parse(data), null, 2))
       .catch(() => {
         setError(true);
       });
@@ -121,7 +120,7 @@ const Run = () => {
     }
 
     if (result) {
-      setResult(result);
+      setResult(JSON.stringify(result, null, 2));
     }
 
     setIsLoading(false);

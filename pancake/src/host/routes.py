@@ -13,7 +13,6 @@ from PIL import Image
 from pancake.interface import Program
 from pancake.compiler import PYNQCompiler
 from pancake.backend import EmulatorCompiler
-from pancake.visualization import draw_program
 
 ########################################################################################
 
@@ -31,7 +30,7 @@ async def run(request: Request, program: Program):
         stimulus_group_name="control",
     )
 
-    for i in range(len(program.instructions) * 3):
+    for i in range(len(program.circuit.instructions) * 3):
         pattern_generator.step()
         time.sleep(1 / program.clock)
 
