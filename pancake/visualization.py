@@ -7,8 +7,8 @@ import numpy as np
 
 ########################################################################################
 
-from ..interface import Circuit
-from ..compiler import PYNQCompiler
+from pancake.interface import Circuit
+from pancake.compiler import PYNQCompiler
 
 ########################################################################################
 

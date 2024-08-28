@@ -6,8 +6,8 @@ import functools
 
 ########################################################################################
 
-from ..interface import *
-from ..compiler.visitor import Transformer
+from pancake.interface import *
+from pancake.compiler.visitor import Transformer
 
 ########################################################################################
 
