@@ -1,52 +1,42 @@
 from pydantic import BaseModel
-import RPi.GPIO as GPIO
+from gpiozero import PWMLED
 import time
 import numpy as np
 
 class Lasers(BaseModel):
-    channels: list[int] = [29, 31, 33, 35, 37]
-    intensities: list[float] = 5 * [0.001,]
-    frequency: float = 100.0
+    channels: list[int] = [5, 6, 13, 19, 26]
 
     def model_post_init(self, _context=None):
-        GPIO.setmode(GPIO.BOARD)
-        self._pwms = {channel: None for channel in self.channels}
-        for channel in self.channels:
-            GPIO.setup(channel, GPIO.OUT)
-
-        
-    def initialize(self):
-        for channel, intensity in zip(self.channels, self.intensities):
-            # GPIO.output(channel, True)
-            p = GPIO.PWM(channel, self.frequency)  # channel 10, frequency in Hz
-            p.start(0.10)   # where dc is the duty cycle (0.0 <= dc <= 100.0)
-            # p.start(intensity * 100.0)   # where dc is the duty cycle (0.0 <= dc <= 100.0)
-            self._pwms[channel] = p
+        self._lasers = {channel: PWMLED(channel) for channel in self.channels}
 
     def waveform(self, intensities: np.array, dt: float):
-        for intensity in intensities: 
-            for channel in self.channels:
-                self._pwms[channel].ChangeDutyCycle(intensity * 100.0)
+        for i in range(intensities.shape[0]):
+            for j, channel in enumerate(self.channels):
+                self._lasers[channel].value = intensities[i,j]
             time.sleep(dt)
+    
+    def on(self):
+        for channel in self.channels:
+            self._lasers[channel].value = 1.0
+
 
     def off(self):
         for channel in self.channels:
-            self._pwms[channel].stop()
-            GPIO.output(channel, False)
-
-    def close(self):
-        self.off()
-        GPIO.cleanup()
+            self._lasers[channel].value = 0.0
 
 
     
 if __name__ == "__main__":
 
     intensities = np.linspace(0.0, 0.1, 100)
-    dt = 0.05
+    intensities =  0.5 * (np.sin(np.linspace(0, 20, 1000)) + 1)
+    dt = 0.001
         
     lasers = Lasers()
-    lasers.initialize()
+
+    intensities = np.stack(
+        [
+            0.5 * (np.sin(np.linspace(0, 20, 1000) + i) + 1) for i, channel in enumerate(lasers.channels)
+        ], axis=1
+    )
     lasers.waveform(intensities=intensities, dt=dt)
-    input('Press return to stop:')
-    lasers.close()
