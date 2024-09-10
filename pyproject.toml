@@ -11,6 +11,8 @@ dependencies = [
     "numpy",
     "PySide6",
     "pydantic",
+    "gpiozero",
+    "lgpio",
 ]
 [project.optional-dependencies]
 docs = [
