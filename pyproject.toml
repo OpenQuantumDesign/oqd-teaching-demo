@@ -14,6 +14,8 @@ dependencies = [
 #    "picamera2",
     "gpiozero",
 #    "RPi.GPIO",
+    "gpiozero",
+    "lgpio",
 ]
 [project.optional-dependencies]
 docs = [

@@ -4,9 +4,9 @@ import time
 
 
 class Trap(BaseModel):
-    pin_left: int = 29
-    pin_right: int = 31
-    pin_reset: int = 33
+    pin_left: int = 14
+    pin_right: int = 15
+    pin_reset: int = 18
     period: float = 0.2
 
     def model_post_init(self, _context=None):

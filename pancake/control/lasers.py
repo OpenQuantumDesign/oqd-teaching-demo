@@ -51,15 +51,15 @@ class BlueLaser(LaserArray):
 
 if __name__ == "__main__":
 
-    intensities = np.linspace(0.0, 0.1, 100)
-    intensities = 0.5 * (np.sin(np.linspace(0, 20, 1000)) + 1)
-    dt = 0.001
+    ts = np.arange(1000)
+    # intensities =  0.5 * (np.sin(ts) + 1)
+    dt = 0.05
         
     lasers = RedLasers()
 
     intensities = np.stack(
         [
-            0.5 * (np.sin(np.linspace(0, 20, 1000) + i) + 1) for i, channel in enumerate(lasers.channels)
+            0.5 * (np.sin(0.3 * ts + i) + 1) for i, channel in enumerate(lasers.channels)
         ], axis=1
     )
     lasers.waveform(intensities=intensities, dt=dt)
