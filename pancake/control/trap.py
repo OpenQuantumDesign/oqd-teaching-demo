@@ -21,7 +21,8 @@ class Trap(BaseModel):
         time.sleep(0.1)
         GPIO.output(self.pin_reset, True)
 
-    def off(self):
+    @staticmethod
+    def off():
         channels = [29, 31, 33, 35, 37]
 
         for channel in channels:
@@ -39,14 +40,19 @@ class Trap(BaseModel):
         GPIO.output(self.pin_right, False)
 
     def shake(self):
+        """
+        Shakes the trap positions in a sawtooth motion, with a period of `Trap.period`.
+        Returns:
+
+        """
         for i in range(10):
             self.left()
             time.sleep(self.period/2)
             self.right()
             time.sleep(self.period/2)
 
-    def close(self):
-        # self.off()
+    @staticmethod
+    def close():
         GPIO.cleanup()
 
 

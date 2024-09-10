@@ -1,19 +1,24 @@
 from pydantic import BaseModel
+from pancake.base import TypeReflectBaseModel
 
 
-class Linear(BaseModel):
-    start: float = 0.0
-    stop: float = 1.0
-    duration: float = 1.0  # seconds
+class MathExpr(TypeReflectBaseModel):
+    pass
 
 
-class ExponentialDecay(BaseModel):
-    start: float = 0.0
-    stop: float = 1.0
-    duration: float = 1.0  # seconds
+class Linear(MathExpr):
+    max: float = 0.0
+    min: float = 1.0
+    duration: float = 1.0   # seconds
 
 
-class Sinusoidal(BaseModel):
-    start: float = 0.0
-    stop: float = 1.0
-    duration: float = 1.0  # seconds
+class ExponentialDecay(MathExpr):
+    max: float = 0.0
+    min: float = 1.0
+    duration: float = 1.0   # seconds
+
+
+class Sinusoidal(MathExpr):
+    max: float = 0.0
+    min: float = 1.0
+    duration: float = 1.0   # seconds

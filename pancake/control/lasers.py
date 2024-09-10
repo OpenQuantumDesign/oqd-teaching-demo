@@ -3,8 +3,10 @@ from gpiozero import PWMLED
 import time
 import numpy as np
 
-class Lasers(BaseModel):
-    channels: list[int] = [5, 6, 13, 19, 26]
+
+class LaserArray(BaseModel):
+    """ Base class for laser control using PWM (pulse width modulation) on the Raspberry Pi. """
+    channels: list[int] = []
 
     def model_post_init(self, _context=None):
         self._lasers = {channel: PWMLED(channel) for channel in self.channels}
@@ -14,25 +16,46 @@ class Lasers(BaseModel):
             for j, channel in enumerate(self.channels):
                 self._lasers[channel].value = intensities[i,j]
             time.sleep(dt)
-    
+
     def on(self):
+        """
+        Turn all lasers on (maximum intensity).
+
+        Returns:
+
+        """
         for channel in self.channels:
             self._lasers[channel].value = 1.0
 
-
     def off(self):
+        """
+        Turns all lasers off.
+        Returns:
+
+        """
         for channel in self.channels:
             self._lasers[channel].value = 0.0
 
 
-    
+class RedLasers(LaserArray):
+    channels: list[int] = [5, 6, 13, 19, 26]
+
+
+class GreenLaser(LaserArray):
+    channels: list[int] = [1]
+
+
+class BlueLaser(LaserArray):
+    channels: list[int] = [2]
+
+
 if __name__ == "__main__":
 
     intensities = np.linspace(0.0, 0.1, 100)
-    intensities =  0.5 * (np.sin(np.linspace(0, 20, 1000)) + 1)
+    intensities = 0.5 * (np.sin(np.linspace(0, 20, 1000)) + 1)
     dt = 0.001
         
-    lasers = Lasers()
+    lasers = RedLasers()
 
     intensities = np.stack(
         [
