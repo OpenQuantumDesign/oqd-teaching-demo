@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-import RPi.GPIO as GPIO
+from gpiozero import LED
 import time
 
 
@@ -10,34 +10,28 @@ class Trap(BaseModel):
     period: float = 0.2
 
     def model_post_init(self, _context=None):
-        GPIO.setmode(GPIO.BOARD)
+        self._pin_left = LED(self.pin_left)
+        self._pin_right = LED(self.pin_right)
+        self._pin_reset = LED(self.pin_reset)
 
         self.off()
 
-        # self.reset()
-
     def reset(self):
-        GPIO.output(self.pin_reset, False)
+        self._pin_reset.off()
         time.sleep(0.1)
-        GPIO.output(self.pin_reset, True)
+        self._pin_reset.on()
 
-    @staticmethod
-    def off():
-        channels = [29, 31, 33, 35, 37]
-
-        for channel in channels:
-            GPIO.setup(channel, GPIO.OUT)
-
-        for channel in channels:
-            GPIO.output(channel, True)
+    def off(self):
+        for pin in [self._pin_left, self._pin_right, self._pin_reset]:
+            pin.on()
 
     def left(self):
-        GPIO.output(self.pin_left, False)
-        GPIO.output(self.pin_right, True)
+        self._pin_left.off()
+        self._pin_right.on()
 
     def right(self):
-        GPIO.output(self.pin_left, True)
-        GPIO.output(self.pin_right, False)
+        self._pin_left.on()
+        self._pin_right.off()
 
     def shake(self):
         """
@@ -50,14 +44,10 @@ class Trap(BaseModel):
             time.sleep(self.period/2)
             self.right()
             time.sleep(self.period/2)
-
-    @staticmethod
-    def close():
-        GPIO.cleanup()
-
+        self.off()
 
 if __name__ == "__main__":
     trap = Trap(period=0.9)
     trap.shake()
-    trap.close()
+    # trap.reset()
 

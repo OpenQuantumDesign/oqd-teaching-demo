@@ -16,6 +16,8 @@ dependencies = [
 #    "RPi.GPIO",
     "gpiozero",
     "lgpio",
+    "pyqtgraph",
+    "pillow",
 ]
 [project.optional-dependencies]
 docs = [

@@ -2,7 +2,7 @@ import copy
 import sys
 import numpy as np
 import pathlib
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 import pyqtgraph as pg
 from pyqtgraph.functions import mkPen
@@ -18,8 +18,13 @@ from PIL import ImageColor
 # from control.trap import Trap
 import sys
 sys.path.append("/home/benjamin/Desktop/outreach/")
+
+
 from pancake.control.trap import Trap
-trap = Trap()
+from pancake.control.lasers import RedLasers
+
+trap = Trap(period=0.9)
+lasers = RedLasers()
 
 # Only stores settings for the utils, nothing for the experiment - that should be in the System class
 ui_config = dict(
@@ -107,11 +112,26 @@ class TrapControlTab(QWidget):
 
         layout = QHBoxLayout()
 
-        button_shake = QPushButton(text="Bottom")
-
-        
+        button_shake = QPushButton(text="Shake Ions")
         button_shake.clicked.connect(trap.shake)
         layout.addWidget(button_shake)
+
+
+        def laser_show():
+            ts = np.arange(30)
+            dt = 0.05                
+            intensities = np.stack(
+                [
+                    0.2 * (np.sin(0.3 * ts + i) + 1) for i, channel in enumerate(lasers.channels)
+                ], axis=1
+            )
+            lasers.waveform(intensities=intensities, dt=dt)
+
+
+        button_lasers = QPushButton(text="Analog Laser")
+        button_lasers.clicked.connect(laser_show)
+        layout.addWidget(button_lasers)
+
         layout.addStretch()
         self.setLayout(layout)
 
