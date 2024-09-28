@@ -4,20 +4,23 @@ import numpy as np
 import pathlib
 # import matplotlib.pyplot as plt
 
-import pyqtgraph as pg
-from pyqtgraph.functions import mkPen
+# import pyqtgraph as pg
+# from pyqtgraph.functions import mkPen
 
-from PySide6 import Qt, QtCore, QtGui
-from PySide6.QtCore import QThread, Signal
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget, QTabWidget, QVBoxLayout, QGridLayout, QHBoxLayout
-from PySide6.QtWidgets import QLineEdit, QLabel, QDoubleSpinBox, QSpinBox, QCheckBox, QButtonGroup, QRadioButton
-from PySide6.QtWidgets import QPushButton, QFrame, QDockWidget, QScrollArea, QStatusBar, QComboBox
-from PySide6.QtCore import QTimer
-from PySide6.QtGui import QFont, QColor
-from PIL import ImageColor
+from PyQt5 import QtCore, QtGui
+# from PyQt6.QtCore import QThread, Signal
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QTabWidget, QVBoxLayout, QGridLayout, QHBoxLayout
+from PyQt5.QtWidgets import QLineEdit, QLabel, QDoubleSpinBox, QSpinBox, QCheckBox, QButtonGroup, QRadioButton
+from PyQt5.QtWidgets import QPushButton, QFrame, QDockWidget, QScrollArea, QStatusBar, QComboBox
+from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QFont, QColor
+
+from PyQt5.QtCore import QThread
+from PyQt5.QtCore import pyqtSignal as Signal
+# from PIL import ImageColor
 
 import sys
-sys.path.append("/home/benjamin/Desktop/outreach/")
+sys.path.append("/home/oqd/outreach/")
 
 from pancake.control.device import Device
 from pancake.control.trap import Trap

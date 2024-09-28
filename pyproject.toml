@@ -8,16 +8,13 @@ name = "pancake"
 version = "0.0.0"
 requires-python = ">=3.9"
 dependencies = [
-    "numpy",
-    "PySide6",
-    "pydantic",
-#    "picamera2",
-    "gpiozero",
-#    "RPi.GPIO",
-    "gpiozero",
-    "lgpio",
-    "pyqtgraph",
-    "pillow",
+#    "numpy",
+#    "PySide6",
+#    "pydantic",
+#    "gpiozero",
+#    "lgpio",
+#    "pyqtgraph",
+#    "pillow",
 ]
 [project.optional-dependencies]
 docs = [

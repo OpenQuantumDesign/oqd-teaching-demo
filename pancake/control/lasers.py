@@ -42,7 +42,7 @@ class RedLasers(LaserArray):
 
 
 class GreenLaser(LaserArray):
-    channels: list[int] = [16]
+    channels: list[int] = [2]  # 
 
 
 class BlueLaser(LaserArray):
@@ -51,7 +51,7 @@ class BlueLaser(LaserArray):
 
 if __name__ == "__main__":
 
-    ts = np.arange(10)
+    ts = np.arange(100)
     # intensities =  0.5 * (np.sin(ts) + 1)
     dt = 0.15
         
@@ -63,4 +63,7 @@ if __name__ == "__main__":
             0.2 * (np.sin(0.3 * ts + i) + 1) for i, channel in enumerate(lasers.channels)
         ], axis=1
     )
+    print(intensities)
+    print(intensities.shape)
+
     lasers.waveform(intensities=intensities, dt=dt)

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from pydantic.types import Union
 
-from pancake.base import TypeReflectBaseModel
+# from pancake.base import TypeReflectBaseModel
 
 from pancake.control.trap import Trap
 from pancake.control.lasers import LaserArray, BlueLaser, RedLasers, GreenLaser

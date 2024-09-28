@@ -44,10 +44,12 @@ class Trap(BaseModel):
             time.sleep(self.period/2)
             self.right()
             time.sleep(self.period/2)
+            
         self.off()
 
 if __name__ == "__main__":
     trap = Trap(period=0.9)
     trap.shake()
+    trap.off()
     # trap.reset()
 
