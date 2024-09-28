@@ -5,23 +5,24 @@ from pancake.base import TypeReflectBaseModel
 
 from pancake.control.trap import Trap
 from pancake.control.lasers import LaserArray, BlueLaser, RedLasers, GreenLaser
-from pancake.control.camera import Camera
+# from pancake.control.camera import Camera
 
 
-class Program(TypeReflectBaseModel):
+# class Program(TypeReflectBaseModel):
+# 
+    # pass
 
-    pass
 
-
-class Demo(BaseModel):
+class Device(BaseModel):
     trap: Trap
     red_lasers: RedLasers
-    blue_laser: BlueLaser
-    green_laser: GreenLaser
-    camera: Camera
+    # blue_laser: BlueLaser
+    # green_laser: GreenLaser
+    # camera: Camera
 
-    def run(self, program: Program):
+    # def run(self, program: Program):
 
-        return
+        # return
 
+    
 
