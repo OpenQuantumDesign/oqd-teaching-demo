@@ -42,11 +42,10 @@ class Device(BaseModel):
 
     def run(self, program: Program):
         for i in range(len(program)):
-            print(self._stop_event.is_set())
             if self._stop_event.is_set():
                 print("Program interrupted.")
                 break
-            print(program.red_lasers_intensity[i])
+            print(i)
             self.red_lasers.set_intensities(intensities=program.red_lasers_intensity[i])
             # device.trap.set_intensities(intentensities=program.red_lasers_intensities[i])
 

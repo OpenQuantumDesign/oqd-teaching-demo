@@ -15,6 +15,8 @@ from PySide6.QtCore import QTimer
 from PySide6.QtGui import QFont, QColor
 from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QLineEdit
 
+from picamera2.previews.qt import QGlPicamera2, QPicamera2
+
 import sys
 sys.path.append("/home/oqd/outreach/")
 
@@ -74,9 +76,13 @@ class TabManager(QWidget):
         # self.tabs.currentChanged.connect(self.on_tab_change)
 
         self.tab1 = TabProgram()
+        self.tabs.addTab(self.tab1, "Run a quantum program")
+
+        self.tab2 = TabDevice()
+        self.tabs.addTab(self.tab2, "Control the device")
+
         # self.tab1 = TabProgram(device=self.device)
-        self.tabs.addTab(self.tab1, "Trap Control")
-        # self.tabs.setCurrentIndex(0)
+        self.tabs.setCurrentIndex(1)
 
         layout.addWidget(self.tabs)
         self.setLayout(layout)
@@ -91,6 +97,7 @@ class TabManager(QWidget):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
+    # QGlPicamera2(picam2=device.camera._camera)
 
     main = DemoOQD()
     app.setStyleSheet(dark_mode_style_sheet)

@@ -14,16 +14,17 @@ class Camera(BaseModel):
 
     def model_post_init(self, _context=None):
         self._camera = Picamera2()
-        config = self._camera.create_preview_configuration()
+        config = self._camera.create_preview_configuration(main={"format": 'RGB888', "size": (640, 480)})
         self._camera.configure(config)
-        self._camera.set_controls({"ExposureTime": self.exposure_time, "AnalogueGain": self.analog_gain})
+        # self._camera.set_controls({"ExposureTime": self.exposure_time, "AnalogueGain": self.analog_gain})
 
-        self._camera.start()
+        # self._camera.start()
 
     def capture(self, file: str = "image"):
         # image = self._camera.capture_image()
         # image = image.convert("RGBA")
         # return image
+        self._camera.start()
         self._camera.capture_file(f"{file}.png")
 
 

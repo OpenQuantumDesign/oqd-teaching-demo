@@ -13,7 +13,12 @@ class LaserArray(BaseModel):
 
     def set_intensities(self, intensities: list):
         for j, channel in enumerate(self.channels):
-                self._lasers[channel].value = intensities[j]
+            self.set_intensity(idx=j, intensity=intensities[j])
+                # self._lasers[channel].value = intensities[j]
+
+    def set_intensity(self, idx: int, intensity: float):
+        self._lasers[self.channels[idx]].value = intensity
+
 
     def waveform(self, intensities: np.array, dt: float):
         for i in range(intensities.shape[0]):

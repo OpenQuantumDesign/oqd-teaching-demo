@@ -55,7 +55,7 @@ class TabProgram(QWidget):
         # self.device_thread = DeviceThread(self.device)
         self.device_thread = DeviceThread(device)
         self.device_thread.task_done_signal.connect(self.on_task_done)
-        self.device_thread.run(program=programs['test'])
+        self.device_thread.start()
         self.start_button.setEnabled(False)
         self.stop_button.setEnabled(True)
 

@@ -23,13 +23,14 @@ class DeviceThread(QThread):
         super().__init__()
         self.device = device
 
-    def run(self, program: Program):
+    def run(self):
         # This will be executed in a separate thread
+        program = programs['test']  # todo: figure out how to pass in the program object
         self.device.run(program=program)
         self.task_done_signal.emit()
 
 
 device = Device(
     # trap=Trap(period=0.9),
-    red_lasers=RedLasers(channels=[2, 6]),
+    red_lasers=RedLasers(channels=[2, 6, 13, 19, 26]),
 )
