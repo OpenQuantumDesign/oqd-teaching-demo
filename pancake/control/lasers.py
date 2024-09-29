@@ -38,11 +38,11 @@ class LaserArray(BaseModel):
 
         """
         for channel in self.channels:
-            self._lasers[channel].value = 0.0
+            self._lasers[channel].value = 0.001
 
 
 class RedLasers(LaserArray):
-    channels: list[int] = [5, 6, 13, 19, 26]
+    channels: list[int] = [5, 6]  # 13, 19, 26]
 
 
 class GreenLaser(LaserArray):

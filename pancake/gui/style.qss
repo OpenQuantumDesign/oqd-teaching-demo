@@ -1,0 +1,95 @@
+/* General Window Style */
+QWidget {
+    background-color: #f0f0f0;  /* Soft gray background */
+    font-family: Arial, sans-serif;
+    font-size: 18px;  /* Large, readable text */
+    color: #333333;  /* Dark gray text */
+}
+
+/* GroupBox (Panel) Style */
+QGroupBox {
+    background-color: #e0e0e0;  /* Slightly darker soft gray for panels */
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    margin-top: 10px; /* Space above the title */
+}
+
+QGroupBox::title {
+    background-color: #a9a9a9;  /* Dark gray heading bar */
+    subcontrol-origin: margin;
+    subcontrol-position: top center; /* Center the title */
+    padding: 5px 15px;
+    color: white;  /* White text for contrast */
+    font-weight: bold;
+}
+
+/* Tab Widget Style */
+QTabWidget {
+    background-color: #f0f0f0;  /* Match the main background */
+}
+
+QTabBar::tab {
+    background-color: #e0e0e0;  /* Soft gray for tab background */
+    padding: 10px;  /* Add padding for better spacing */
+    margin: 2px;  /* Space between tabs */
+    border: 1px solid #cccccc;  /* Light gray border */
+    border-top-left-radius: 5px;  /* Rounded corners for the top left */
+    border-top-right-radius: 5px;  /* Rounded corners for the top right */
+}
+
+QTabBar::tab:selected {
+    background-color: #ffc0cb;  /* Soft pink for the selected tab */
+    color: white;  /* White text for selected tab */
+}
+
+QTabBar::tab:hover {
+    background-color: #ffb6c1;  /* Darker pink on hover */
+}
+
+/* PushButton */
+QPushButton {
+    background-color: #ffc0cb;  /* Soft pink background */
+    border: 1px solid #ffb6c1;  /* Slightly darker pink border */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+QPushButton:hover {
+    background-color: #ffb6c1;  /* Darker pink on hover */
+}
+
+QPushButton:pressed {
+    background-color: #ff9aa2;  /* Even darker pink when pressed */
+}
+
+/* Labels */
+QLabel {
+    font-size: 20px;  /* Larger text for readability */
+    color: #333333;  /* Dark gray text */
+}
+
+/* LineEdits */
+QLineEdit {
+    background-color: #ffffff;  /* White background */
+    border: 1px solid #cccccc;  /* Light gray border */
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 18px;  /* Large text */
+    color: #333333;
+}
+
+/* Sliders */
+QSlider::groove:horizontal {
+    border: 1px solid #cccccc;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+}
+
+QSlider::handle:horizontal {
+    background: #ffc0cb;
+    border: 1px solid #ffb6c1;
+    width: 18px;
+    margin: -5px 0;
+    border-radius: 9px;
+}

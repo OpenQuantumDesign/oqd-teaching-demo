@@ -5,26 +5,28 @@ from pydantic.types import Union
 
 
 class Program(BaseModel):
-    camera: list[bool]
-    lasers: list[list[float]]
-    trap: list[bool]
+    camera_trigger: list[bool]
+    red_lasers_intensity: list[list[float]]
+    phonon_com: list[bool]
     dt: float
 
     # todo: validate the length of all
 
     def __len__(self):
-        return len(self.camera)
+        return len(self.camera_trigger)
 
 
-n = 10
-program = Program(
-    camera = n * [0],
-    lasers = [
-        [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
-        [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
-    ],
-    trap = n * [1],
-    dt = 0.2
-)
+if __name__ == "__main__":
 
-print(program)
+    n = 10
+    program = Program(
+        camera_trigger = n * [0],
+        red_lasers_intensity = [
+            [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
+            [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
+        ],
+        phonon_com = n * [1],
+        dt = 0.2
+    )
+
+    print(program)

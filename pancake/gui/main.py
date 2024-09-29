@@ -14,7 +14,7 @@ from PySide6.QtWidgets import QLineEdit, QLabel, QDoubleSpinBox, QSpinBox, QChec
 from PySide6.QtWidgets import QPushButton, QFrame, QDockWidget, QScrollArea, QStatusBar, QComboBox
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QFont, QColor
-
+from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QLineEdit
 # from PyQt5.QtCore import QThread
 # from PyQt5.QtCore import pyqtSignal as Signal
 # from PIL import ImageColor
@@ -25,7 +25,9 @@ sys.path.append("/home/oqd/outreach/")
 from pancake.control.device import Device
 from pancake.control.trap import Trap
 from pancake.control.lasers import RedLasers
+from pancake.program import Program
 
+from pancake.gui.style import dark_mode_style_sheet
 
 
 class DeviceThread(QThread):
@@ -37,7 +39,7 @@ class DeviceThread(QThread):
 
     def run(self):
         # This will be executed in a separate thread
-        self.device.perform_task()
+        self.device.run(program=program)
         self.task_done_signal.emit()
 
     # def laser_show(self):
@@ -58,9 +60,27 @@ class DeviceThread(QThread):
         
 
 _device = Device(
-    trap=Trap(period=0.9),
-    red_lasers=RedLasers(),
+    # trap=Trap(period=0.9),
+    red_lasers=RedLasers(channels=[2, 6]),
 )
+
+n = 10
+red_lasers_intensity = list(zip(
+    [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
+    [0, 0.5, 0.75, 0.9, 1.0] * (n//5)
+))
+
+print(red_lasers_intensity)
+program = Program(
+    camera_trigger = n * [0],
+    red_lasers_intensity = list(zip(
+        [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
+        [0, 0.5, 0.75, 0.9, 1.0] * (n//5)
+    )),
+    phonon_com = n * [1],
+    dt = 0.2
+)
+
 
 # Only stores settings for the utils, nothing for the experiment - that should be in the System class
 ui_config = dict(
@@ -192,13 +212,26 @@ class TrapControlTab(QWidget):
 
 
   
+# def load_stylesheet(filename):
+#     """Load QSS stylesheet from a file."""
+#     with open(filename, "r") as file:
+#         return file.read()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    app.setStyle("Fusion")
+    # app.setStyle("Fusion")
     # app.setPalette(palette)
 
     main = LabInterfaceApp()
+
+    # style_path = pathlib.Path(__file__).parent.joinpath("style.qss")
+    # print(style_path)
+    # stylesheet = load_stylesheet(style_path.absolute())
+    # print(stylesheet)
+    # app.setStyleSheet(stylesheet)  # Apply it to the entire application
+    app.setStyleSheet(dark_mode_style_sheet)
+
     main.show()
     sys.exit(app.exec())
