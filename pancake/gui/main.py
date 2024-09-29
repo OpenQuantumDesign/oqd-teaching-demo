@@ -97,7 +97,6 @@ class TabManager(QWidget):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
-    # QGlPicamera2(picam2=device.camera._camera)
 
     main = DemoOQD()
     app.setStyleSheet(dark_mode_style_sheet)

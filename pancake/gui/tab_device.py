@@ -39,19 +39,22 @@ class TabDevice(QWidget):
 
         self.layout = QHBoxLayout()
 
+        sublayout = QVBoxLayout()
+        sublayout.setSpacing(10)
         self.panel_red_lasers = PanelRedLasers()
-        self.layout.addWidget(self.panel_red_lasers)
-
         self.panel_trap_position = PanelTrapPosition()
-        self.layout.addWidget(self.panel_trap_position)
-
         self.panel_camera = PanelCamera()
-        # QGlPicamera2(picam2=device.camera._camera)
-        # self.panel_camera = QGlPicamera2(picam2=device.camera._camera)
-        # self.panel_camera = QPicamera2(device.camera._camera)
+
+        sublayout.addWidget(self.panel_red_lasers)
+        sublayout.addStretch()
+        sublayout.addWidget(self.panel_trap_position)
+        sublayout.addStretch()
+
+        self.layout.addLayout(sublayout)
+        self.layout.addStretch()
         self.layout.addWidget(self.panel_camera)
 
-        self.layout.addStretch()
+        # self.layout.addStretch()
         self.setLayout(self.layout)
 
 
@@ -114,6 +117,7 @@ class PanelTrapPosition(QWidget):
         self.label = QLabel("Stopped", self)
         layout.addWidget(self.label)
 
+
         # Create a slider limited to -1, 0, and 1
         self.slider = QSlider(Qt.Horizontal, self)
         self.slider.setMinimum(-1)
@@ -125,6 +129,11 @@ class PanelTrapPosition(QWidget):
         self.slider.valueChanged.connect(self.update_label)
         layout.addWidget(self.slider)
 
+        self.start_button = QPushButton("Shake Ion", self)
+        self.start_button.setGeometry(50, 50, 200, 50)
+        self.start_button.clicked.connect(device.trap.shake)
+        layout.addWidget(self.start_button)
+
         # Set the layout for the widget
         self.setLayout(layout)
 
@@ -132,10 +141,17 @@ class PanelTrapPosition(QWidget):
         # Update the label based on the slider value
         if value == -1:
             self.label.setText("Left")
+            device.trap.left()
+
         elif value == 0:
             self.label.setText("Stopped")
+            device.trap.stop()
+
+
         elif value == 1:
             self.label.setText("Right")
+            device.trap.right()
+
 
 
 
@@ -161,22 +177,23 @@ class PanelCamera(QWidget):
 
         # Layout setup  
         self.image_label = QLabel(self)
-        self.image_label.setFixedSize(640, 480)
+        # self.image_label.setFixedSize(640, 480)
+        # self.image_label.setFixedSize(480, 360)
 
         self.live_button = QPushButton("Start Live Feed", self)
         self.live_button.clicked.connect(self.toggle_live_feed)
 
-        self.capture_button = QPushButton("Capture Image", self)
-        self.capture_button.clicked.connect(self.capture_image)
+        # self.capture_button = QPushButton("Capture Image", self)
+        # self.capture_button.clicked.connect(self.capture_image)
 
-        self.stop_button = QPushButton("Stop", self)
-        self.stop_button.clicked.connect(self.stop_camera)
+        # self.stop_button = QPushButton("Stop", self)
+        # self.stop_button.clicked.connect(self.stop_camera)
 
         layout = QVBoxLayout()
         layout.addWidget(self.image_label)
         layout.addWidget(self.live_button)
-        layout.addWidget(self.capture_button)
-        layout.addWidget(self.stop_button)
+        # layout.addWidget(self.capture_button)
+        # layout.addWidget(self.stop_button)
 
         self.setLayout(layout)
 

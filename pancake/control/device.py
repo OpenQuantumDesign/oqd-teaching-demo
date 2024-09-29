@@ -16,7 +16,7 @@ import threading
 
 
 class Device(BaseModel):
-    # trap: Trap = Field(default_factory=Trap)
+    trap: Trap = Field(default_factory=Trap)
     red_lasers: RedLasers = Field(default_factory=RedLasers)
     # blue_laser: BlueLaser
     # green_laser: GreenLaser
