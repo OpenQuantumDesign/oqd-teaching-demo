@@ -1,3 +1,17 @@
+
+ui_config = dict(
+    # settings for the main window(s)
+    WIDTH=1024,
+    HEIGHT=600,
+    COLORS=["#9b59b6", "#3498db", "#95a5a6", "#e74c3c", "#34495e", "#2ecc71"],
+    PLOT_BACKGROUND="#E6E6EA",
+    PLOT_FOREGROUND="#434A42",
+    # LOGO_PATH=str(pathlib.Path(__file__).parent.parent.parent.joinpath(r'qoqi\interfaces\themes').joinpath('iqc.png')),
+)
+
+
+
+
 default_style_sheet = """
 /* Set the background color */
 QWidget {

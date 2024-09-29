@@ -36,12 +36,13 @@ class Device(BaseModel):
     #         print(f"Running task step {i + 1}")
     #         time.sleep(1)  # Simulate work
 
-    def stop_task(self):
+    def stop(self):
         print("Stopping task...")
         self._stop_event.set()
 
     def run(self, program: Program):
         for i in range(len(program)):
+            print(self._stop_event.is_set())
             if self._stop_event.is_set():
                 print("Program interrupted.")
                 break
@@ -59,9 +60,6 @@ class Device(BaseModel):
         self.red_lasers.off()
         return
 
-    # def run(self, program: Program):
-
-        # return
 
     
 
