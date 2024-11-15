@@ -170,3 +170,5 @@ src/server/.nicegui
 .DS_Store
 /.idea
 *.afdesign
+
+*.png
