@@ -47,7 +47,7 @@ class LaserArray(BaseModel):
 
 
 class RedLasers(LaserArray):
-    channels: list[int] = [5, 6]  # 13, 19, 26]
+    channels: list[int] = [5, 6, 13, 19, 26]
 
 
 class GreenLaser(LaserArray):
@@ -55,17 +55,19 @@ class GreenLaser(LaserArray):
 
 
 class BlueLaser(LaserArray):
-    channels: list[int] = [2]
+    channels: list[int] = [3]
 
 
 if __name__ == "__main__":
+
+    # lasers = BlueLaser()
+    # lasers.set_intensity(idx=0, intensity=0.0)
 
     ts = np.arange(100)
     # intensities =  0.5 * (np.sin(ts) + 1)
     dt = 0.15
         
     lasers = RedLasers()
-    # lasers = GreenLaser()
 
     intensities = np.stack(
         [

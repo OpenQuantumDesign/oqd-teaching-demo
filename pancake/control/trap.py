@@ -4,11 +4,12 @@ import time
 import lgpio as gpio
 # import rgpio as gpio
 import atexit
+from typing import Literal
 
 
 class Trap(BaseModel):
-    pin_left: int = 16
-    pin_right: int = 20
+    pin_left: int = 20
+    pin_right: int = 16
     pin_reset: int = 21
     frequency: float = 1
     duty: float = 50
@@ -66,6 +67,18 @@ class Trap(BaseModel):
         """
         gpio.tx_pwm(self._h, self.pin_left, self.frequency, self.duty)
         gpio.tx_pwm(self._h, self.pin_right, self.frequency, self.duty)
+
+    def mode(self, mode: Literal['left', 'right', 'shake', 'stop']):
+        if mode == "left":
+            self.left()
+        elif mode == "right":
+            self.right()
+        elif mode == "shake":
+            self.shake()
+        elif mode == "stop":
+            self.stop()
+        else:
+            pass
 
     def close(self):
         # self._h.stop()

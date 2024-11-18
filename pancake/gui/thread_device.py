@@ -32,5 +32,5 @@ class DeviceThread(QThread):
 
 device = Device(
     # trap=Trap(period=0.9),
-    red_lasers=RedLasers(channels=[2, 6, 13, 19, 26]),
+    red_lasers=RedLasers(channels=[2, 5, 6, 13, 19, 26]),
 )

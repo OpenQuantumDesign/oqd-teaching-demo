@@ -8,7 +8,7 @@ sys.path.append("/home/oqd/outreach/")
 
 from pancake.control.trap import Trap
 from pancake.control.lasers import LaserArray, BlueLaser, RedLasers, GreenLaser
-from pancake.control.camera import Camera
+# from pancake.control.camera import Camera
 from pancake.program import Program
 
 import threading 
@@ -18,9 +18,7 @@ import threading
 class Device(BaseModel):
     trap: Trap = Field(default_factory=Trap)
     red_lasers: RedLasers = Field(default_factory=RedLasers)
-    # blue_laser: BlueLaser
-    # green_laser: GreenLaser
-    camera: Camera = Field(default_factory = Camera)
+    blue_laser: BlueLaser = Field(default_factory=BlueLaser)
 
 
     def model_post_init(self, _context=None):
@@ -45,15 +43,13 @@ class Device(BaseModel):
             if self._stop_event.is_set():
                 print("Program interrupted.")
                 break
-            print(i)
             self.red_lasers.set_intensities(intensities=program.red_lasers_intensity[i])
             # device.trap.set_intensities(intentensities=program.red_lasers_intensities[i])
 
-            if i > 0: 
-                if program.camera_trigger[i] - program.camera_trigger[i-1] == +1:  # rising edge
-                    self.camera.capture(file=f"step{i}")
+            # if i > 0: 
+            #     if program.camera_trigger[i] - program.camera_trigger[i-1] == +1:  # rising edge
+            #         self.camera.capture(file=f"step{i}")
 
-            print(i)
             time.sleep(program.dt)
 
         self.red_lasers.off()
@@ -80,7 +76,6 @@ if __name__ == "__main__":
         dt = 0.2
     )
     print(len(program.red_lasers_intensity))
-    device = Device(
-        red_lasers=RedLasers(channels=[6, 2])
-    )
-    device.run(program=program)
+    device = Device()
+    device.trap.stop()
+    # device.run(program=program)
