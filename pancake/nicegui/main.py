@@ -6,7 +6,7 @@ import logging
 sys.path.append("/home/oqd/outreach/")
 
 from pancake.control.device import Device, RedLasers, BlueLaser, Trap
-from pancake.nicegui.programs import digital_simple
+from pancake.nicegui.programs import *
 
 from pancake.program import Program
 
@@ -55,7 +55,7 @@ def control_card(board: Board):
 
             with ui.list().classes('w-32'):
                 sliders = {}
-                for i in range(5):
+                for i in range(len(board.device.red_lasers.channels)):
                     ui.label(f"Control Laser {i}")
                     slider = ui.slider(
                         min=0.0, max=1.0, step=0.01, value=0.5, 
@@ -63,8 +63,22 @@ def control_card(board: Board):
                     ).props('color=red').on('change', lambda e, idx=i: board.device.red_lasers.set_intensity(idx=idx, intensity=e.args))
                     sliders[i] = slider
                     slider.value = 0.0
+                
+                def all_on():
+                    for idx, slider in sliders.items():
+                        slider.value = 1.0
+                        board.device.red_lasers.set_intensity(idx=idx, intensity=1.0)
+
+                def all_off():
+                    for idx, slider in sliders.items():
+                        slider.value = 0.0
+                        board.device.red_lasers.set_intensity(idx=idx, intensity=0.0)
 
             with ui.card():
+                ui.button('Lasers On', on_click=all_on)
+                ui.button('Lasers Off', on_click=all_off)
+
+
                 toggle = ui.toggle(
                     {
                         'left': 'Left', 
@@ -91,15 +105,36 @@ def control_card(board: Board):
 def digital_card(board: Board):
     with ui.dialog() as digital_dialog, ui.card():
         # ui.label('Digital').style('color: #6E93D6; font-size: 200%; font-weight: 300')
+        with ui.row().classes('fixed-center'):
+            with ui.list():
+                ui.button("Shor's Algorithm", on_click=lambda: board.device.run(digital_shor())).props('border p-33')
+                ui.button("Random Circuit", on_click=lambda: board.device.run(digital_random())).props('border p-3')
+
+            # ui.button('Stop', on_click=lambda: board.device.stop())
+
+            # with ui.card():
+            #     ui.button('Stop', on_click=lambda: board.device.stop())
 
 
-        with ui.column().classes('fixed-center'):
-            ui.button('Quantum Circuit', on_click=lambda: board.device.run(digital_simple()))
+            with ui.card().classes('w-full'):
+                ui.image('http://172.31.60.59:5000/stream')
 
-            ui.button('Stop', on_click=lambda: board.device.stop())
-        
     return digital_dialog
     
+
+def analog_card(board: Board):
+    with ui.dialog() as analog_dialog, ui.card():
+        with ui.row().classes('fixed-center'):
+            with ui.list():
+                ui.button("Nearest Neighbours Ising", on_click=lambda: board.device.run(analog_ising()))
+                ui.button("All-to-All Interactions", on_click=lambda: board.device.run(analog_all_to_all()))
+
+
+            with ui.card().classes('w-full'):
+                ui.image('http://172.31.60.59:5000/stream')
+
+    return analog_dialog
+
 
 def main():
 
@@ -110,6 +145,7 @@ def main():
 
     control_dialog = control_card(board)
     digital_dialog = digital_card(board)
+    analog_dialog = analog_card(board)
 
 
 
@@ -119,7 +155,7 @@ def main():
         with ui.row().classes('fixed-center'):
             ui.button('Control Panel', on_click=control_dialog.open)
             ui.button('Digital Interface', on_click=digital_dialog.open)
-            ui.button('Analog Interface',)
+            ui.button('Analog Interface', on_click=analog_dialog.open)
 
         ui.image("https://github.com/OpenQuantumDesign/equilux/blob/9ed0c5380133e7d135121c44c3f4cdbcb8cf781b/docs/img/oqd-logo.png?raw=true").classes("w-32 h-32")
 
@@ -133,6 +169,5 @@ if __name__ in {"__main__", "__mp_main__"}:
         host='0.0.0.0',
         port=8080,
         reload=False,
-        # favicon='oqd-logo.png',  # Optional favicon
         favicon="https://github.com/OpenQuantumDesign/equilux/blob/9ed0c5380133e7d135121c44c3f4cdbcb8cf781b/docs/img/oqd-logo.png?raw=true",
     )

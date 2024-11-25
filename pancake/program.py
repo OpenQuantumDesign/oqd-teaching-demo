@@ -5,15 +5,15 @@ from pydantic.types import Union
 
 
 class Program(BaseModel):
-    camera_trigger: list[bool]
+    # camera_trigger: list[bool]
     red_lasers_intensity: list[list[float]]
-    phonon_com: list[bool]
+    # phonon_com: list[bool]
     dt: float
 
     # todo: validate the length of all
 
     def __len__(self):
-        return len(self.camera_trigger)
+        return len(self.red_lasers_intensity)
 
 
 # if __name__ == "__main__":

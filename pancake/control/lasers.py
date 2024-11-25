@@ -47,7 +47,8 @@ class LaserArray(BaseModel):
 
 
 class RedLasers(LaserArray):
-    channels: list[int] = [5, 6, 13, 19, 26]
+    # channels: list[int] = [5, 6, 13, 19, 26]
+    channels: list[int] = [5, 6, 19, 26]
 
 
 class GreenLaser(LaserArray):
