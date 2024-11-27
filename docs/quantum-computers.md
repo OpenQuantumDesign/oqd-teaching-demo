@@ -28,8 +28,8 @@ Some of the most popular directions that are being pursued include:
 * Preparing and measuring the ions can be done to a very high degree of fidelity.
 * Trapped ion quantum devices can be made to have *all-to-all* connectivity. Other architectures are limited in which qubits can interact with which other qubits, often due to the physical layout of the device. Trapped ions can overcome this limitation, as the ions can be made to move, or 'shake', coupled with other ions in very controlled ways. 
 
-![trapped-ion](imgs/ion-trap-connected.png)
-![trap-design](imgs/simplified-hardware-stack.png)
+![trapped-ion](img/ion-trap-connected.png)
+![trap-design](img/simplified-hardware-stack.png)
 
 Layers of trapped ion quantum computer include:
 * Vacuum chamber to trap ions
