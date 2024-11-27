@@ -5,7 +5,7 @@
 </h2>
 
 
-[![doc](https://img.shields.io/badge/documentation-lightblue)](https://docs.openquantumdesign.org/open-quantum-design-core)
+[//]: # ([![doc]&#40;https://img.shields.io/badge/documentation-lightblue&#41;]&#40;https://docs.openquantumdesign.org/open-quantum-design-outreach&#41;)
 [![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -35,7 +35,7 @@ The enclosure is 3D printed and components assembled.
 The designs, including object files to 3D print, electronic wiring diagrams, and the control software are all included in this repository.
 Note that v3 is in the works, which will include improved 
 
-# ![OQD Demo v2](docs/img/demo-v2.jpg)
+# ![OQD Demo v2](img/demo-v2.jpg)
 In the picture of the v2 design of the demo unit, six polystyrene balls are suspended in midair by sound.
 The pressure waves formed by an array of transducers at each end create nodal points - 
 points where objects are suspended in-place by the force of the air pressure. 

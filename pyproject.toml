@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pancake"
+version = "0.0.0"
+requires-python = ">=3.9"
+dependencies = [
+#    "numpy",
+#    "PySide6",
+#    "pydantic",
+#    "gpiozero",
+#    "lgpio",
+#    "pyqtgraph",
+#    "pillow",
+]
+[project.optional-dependencies]
+docs = [
+    "pymdown-extensions",
+    "mkdocstrings",
+    "mkdocs-material",
+    "mkdocstrings-python",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pancake"]
