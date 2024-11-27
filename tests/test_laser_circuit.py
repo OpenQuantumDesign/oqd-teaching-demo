@@ -1,13 +1,9 @@
-
-from pydantic import BaseModel
-from gpiozero import PWMLED
-import time
 import numpy as np
 
 import sys
 sys.path.append("/home/oqd/outreach/")
 
-from pancake.control.lasers import GreenLaser
+from src import GreenLaser
 
 
 if __name__ == "__main__":
