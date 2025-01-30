@@ -19,7 +19,6 @@ from picamera2 import Picamera2, Preview
 
 
 """
-
 Relevant resources for setting up a RPi camera:
 # https://stackoverflow.com/questions/78604504/displaying-raspberry-pi-camera-3-using-pyqt5-on-pi5-results-in-odd-images
 # https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/5
