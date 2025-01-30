@@ -4,10 +4,9 @@
     Open Quantum Design: Full-stack Trapped-ion Demo  
 </h2>
 
+> [!NOTE]
+> :bangbang: This design is still in prototype stage - version 3 is under active development. Feel free to get in touch if you're interested in getting access to this teaching tool!
 
-```admonition
-**Note:** This design is still in prototype stage - version 3 is under active development. Feel free to get in touch if you're interested in getting access to this teaching tool!
-```
 What is a trapped ion quantum computer? 
 What are the components that go into building a quantum computer? What are the layers of a "full-stack"?
 What does it mean to "trap" an ion?

@@ -1,5 +1,5 @@
 
-# Version 2.
+# Version 2
 
 Last updated: 2025-01-30
 
@@ -16,7 +16,7 @@ Last updated: 2025-01-30
 | Raspberry Pi Touchscreen                  | [PiShop CA](https://www.pishop.ca/product/8inch-capacitive-touch-display-wide-color-gamut-1280-800-optical-bonding-toughened-glass-panel-hdmi-type-c-display-interface/) |
 | On/Off LED Switch                         | [Adafruit](https://www.adafruit.com/product/915)                                                                                                                         |
 
- Note: Designs for the next version will use the official Raspberry Pi touchscreen! 
+ Note: Designs for the next version will use the official Raspberry Pi touchscreen!
 
 ## Enclosure Prints
 
@@ -31,13 +31,13 @@ Last updated: 2025-01-30
 | OQD Axial Laser Holder   | [STL Files](../design/objects/side-laser-holder.stl)                                      |         |
 | OQD Electronics Plate    | [STL Files](../design/objects/electronics-plate.stl)                                      |         |
 
-Note: Designs for the next version are in the works, and will improve 
+Note: Designs for the next version are in the works, and will improve
 
 ## Acoustic Trap
 
-The trapping mechanism is based on the excellent, and incredibly fun, 
+The trapping mechanism is based on the excellent, and incredibly fun,
 design by Asier Marzo, Adrian Barnes, Bruce W. Drinkwater and the UpnaLab.
-Read the [Instructable](https://www.instructables.com/Acoustic-Levitator/) 
+Read the [Instructable](https://www.instructables.com/Acoustic-Levitator/)
 and the [journal publication](https://doi.org/10.1063/1.4989995).
 
 Please read through their detailed explanation on how to build the acoustic levitator.
