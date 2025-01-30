@@ -1,8 +1,10 @@
 
-Version 2.
+# Version 2.
+
 Last updated: 2025-01-30
 
-### Electronics
+## Electronics
+
 | Item                                      | Links                                                                                                                                                                    |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Raspberry Pi 4B                           | [Raspberry Pi](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)                                                                                             |
@@ -16,9 +18,8 @@ Last updated: 2025-01-30
 
  Note: Designs for the next version will use the official Raspberry Pi touchscreen! 
 
+## Enclosure Prints
 
-
-### Enclosure Prints
 | Item                     | Links                                                                                     | Details |
 | ------------------------ | ----------------------------------------------------------------------------------------- | ------- |
 | OQD Base Enclosure       | [STL File](../design/objects/oqd-enclosure-base.stl)                                      |         |
@@ -32,8 +33,8 @@ Last updated: 2025-01-30
 
 Note: Designs for the next version are in the works, and will improve 
 
+## Acoustic Trap
 
-### Acoustic Trap
 The trapping mechanism is based on the excellent, and incredibly fun, 
 design by Asier Marzo, Adrian Barnes, Bruce W. Drinkwater and the UpnaLab.
 Read the [Instructable](https://www.instructables.com/Acoustic-Levitator/) 
