@@ -20,7 +20,8 @@ import numpy as np
 
 
 class LaserArray(BaseModel):
-    """ Base class for laser control using PWM (pulse width modulation) on the Raspberry Pi. """
+    """Base class for laser control using PWM (pulse width modulation) on the Raspberry Pi."""
+
     channels: list[int] = []
 
     def model_post_init(self, _context=None):
@@ -33,11 +34,10 @@ class LaserArray(BaseModel):
     def set_intensity(self, idx: int, intensity: float):
         self._lasers[self.channels[idx]].value = intensity
 
-
     def waveform(self, intensities: np.array, dt: float):
         for i in range(intensities.shape[0]):
             for j, channel in enumerate(self.channels):
-                self._lasers[channel].value = intensities[i,j]
+                self._lasers[channel].value = intensities[i, j]
             time.sleep(dt)
 
     def on(self):
@@ -65,7 +65,7 @@ class RedLasers(LaserArray):
 
 
 class GreenLaser(LaserArray):
-    channels: list[int] = [2]  # 
+    channels: list[int] = [2]  #
 
 
 class BlueLaser(LaserArray):
@@ -78,9 +78,8 @@ if __name__ == "__main__":
     lasers = RedLasers()
 
     intensities = np.stack(
-        [
-            0.2 * (np.sin(0.3 * ts + i) + 1) for i, channel in enumerate(lasers.channels)
-        ], axis=1
+        [0.2 * (np.sin(0.3 * ts + i) + 1) for i, channel in enumerate(lasers.channels)],
+        axis=1,
     )
     print(intensities)
     print(intensities.shape)

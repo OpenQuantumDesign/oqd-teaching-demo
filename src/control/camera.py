@@ -15,7 +15,7 @@
 
 from pydantic import BaseModel
 from pydantic.types import NonNegativeInt, Literal
-from picamera2 import Picamera2, Preview
+from picamera2 import Picamera2
 
 
 """
@@ -26,6 +26,7 @@ Relevant resources for setting up a RPi camera:
 # https://forums.raspberrypi.com/viewtopic.php?t=354644
 """
 
+
 class Camera(BaseModel):
     transform: Literal["none", "horizontal", "vertical", "both"] = "none"
     exposure_time: NonNegativeInt = 30000
@@ -33,7 +34,9 @@ class Camera(BaseModel):
 
     def model_post_init(self, _context=None):
         self._camera = Picamera2()
-        config = self._camera.create_preview_configuration(main={"format": 'RGB888', "size": (640, 480)})
+        config = self._camera.create_preview_configuration(
+            main={"format": "RGB888", "size": (640, 480)}
+        )
         self._camera.configure(config)
 
     def capture(self, file: str = "image"):

@@ -15,21 +15,17 @@
 
 from pydantic import BaseModel, Field
 import time
-import sys
 
 from src import Trap
 from src import BlueLaser, RedLasers
-from control.camera import Camera
 
-import threading 
-
+import threading
 
 
 class Device(BaseModel):
     trap: Trap = Field(default_factory=Trap)
     red_lasers: RedLasers = Field(default_factory=RedLasers)
     blue_laser: BlueLaser = Field(default_factory=BlueLaser)
-
 
     def model_post_init(self, _context=None):
         self._stop_event = threading.Event()
@@ -53,20 +49,20 @@ class Device(BaseModel):
 
 if __name__ == "__main__":
     n = 10
-    red_lasers_intensity = list(zip(
-        [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
-        [0, 0.5, 0.75, 0.9, 1.0] * (n//5)
-    ))
+    red_lasers_intensity = list(
+        zip([0, 0.5, 0.75, 0.9, 1.0] * (n // 5), [0, 0.5, 0.75, 0.9, 1.0] * (n // 5))
+    )
 
     print(red_lasers_intensity)
     program = Program(
-        camera_trigger = (n-1) * [0] + [1],
-        red_lasers_intensity = list(zip(
-            [0, 0.5, 0.75, 0.9, 1.0] * (n//5),
-            [0, 0.5, 0.75, 0.9, 1.0] * (n//5)
-        )),
-        phonon_com = n * [1],
-        dt = 0.2
+        camera_trigger=(n - 1) * [0] + [1],
+        red_lasers_intensity=list(
+            zip(
+                [0, 0.5, 0.75, 0.9, 1.0] * (n // 5), [0, 0.5, 0.75, 0.9, 1.0] * (n // 5)
+            )
+        ),
+        phonon_com=n * [1],
+        dt=0.2,
     )
     print(len(program.red_lasers_intensity))
     device = Device()

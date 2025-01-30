@@ -11,13 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-   
+
 
 from pydantic import BaseModel
-from gpiozero import LED, PWMLED
 import time
 import lgpio as gpio
-import atexit
 from typing import Literal
 
 
@@ -29,10 +27,10 @@ class Trap(BaseModel):
     duty: float = 50
 
     def model_post_init(self, _context=None):
-        self._h = gpio.gpiochip_open(0) # Pi's main gpiochip
+        self._h = gpio.gpiochip_open(0)  # Pi's main gpiochip
 
-        gpio.gpio_claim_output(self._h, self.pin_reset) # claim G1 of gpiochip
-        gpio.gpio_claim_output(self._h, self.pin_left) # claim G1 of gpiochip
+        gpio.gpio_claim_output(self._h, self.pin_reset)  # claim G1 of gpiochip
+        gpio.gpio_claim_output(self._h, self.pin_left)  # claim G1 of gpiochip
         gpio.gpio_claim_output(self._h, self.pin_right, lFlags=gpio.SET_ACTIVE_LOW)
 
         gpio.gpio_write(self._h, self.pin_reset, 1)
@@ -48,7 +46,7 @@ class Trap(BaseModel):
     def stop(self):
         gpio.gpio_write(self._h, self.pin_right, 0)
         gpio.gpio_write(self._h, self.pin_left, 1)
-        
+
     def shake(self):
         """
         Shakes the trap positions in a sawtooth motion, with a period of `Trap.period`.
@@ -58,7 +56,7 @@ class Trap(BaseModel):
         gpio.tx_pwm(self._h, self.pin_left, self.frequency, self.duty)
         gpio.tx_pwm(self._h, self.pin_right, self.frequency, self.duty)
 
-    def mode(self, mode: Literal['left', 'right', 'shake', 'stop']):
+    def mode(self, mode: Literal["left", "right", "shake", "stop"]):
         if mode == "left":
             self.left()
         elif mode == "right":
@@ -75,12 +73,12 @@ class Trap(BaseModel):
         time.sleep(0.05)
         gpio.gpio_write(self._h, self.pin_left, 1)
         time.sleep(0.05)
-        
+
 
 if __name__ == "__main__":
     trap = Trap()
     trap.left()
-    
+
     input()
     trap.right()
 
@@ -89,4 +87,3 @@ if __name__ == "__main__":
 
     input()
     trap.close()
-    
