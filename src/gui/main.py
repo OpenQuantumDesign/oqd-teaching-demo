@@ -1,3 +1,18 @@
+# Copyright 2024-2025 Open Quantum Design
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from nicegui import ui
 import atexit
 import sys
@@ -25,22 +40,6 @@ class Board:
 
     def cleanup(self):
         return
-        # self.device.close()
-
-# class DeviceThread(QThread):
-#     task_done_signal = Signal()
-
-#     def __init__(self, device: Device):
-#         super().__init__()
-#         self.device = device
-
-#     def run(self):
-#         # This will be executed in a separate thread
-#         program = programs['test']  # todo: figure out how to pass in the program object
-#         self.device.run(program=program)
-#         self.task_done_signal.emit()
-
-
 
 def control_card(board: Board):
     with ui.dialog() as control_dialog, ui.card():

@@ -1,6 +1,3 @@
-# Open Quantum Design
-A quick overview of quantum computing concepts relevant to OQD, aimed towards a broad audience.
-
 ## Quantum computers
 Quantum computers utilize the effects of quantum mechanics to process information. 
 Some of the most important effects of quantum mechanics for computing purposes are superposition, entanglement, and measurement.
@@ -11,16 +8,14 @@ Some of the most important effects of quantum mechanics for computing purposes a
 
 While classical computers are based on *bits*, information stored as 0 and 1's, quantum computers are based on *qubits*. 
 
-
 Quantum computers can be created using a variety of different underlying quantum systems. 
 Some of the most popular directions that are being pursued include:
 * **Atoms/ions**: Isolating individual atoms or ions. These are generally referred to as *trapped ion* or *neutral atom* quantum computers, respectively. These approaches differ in the methods for isolating and controlling the atoms. 
 * **Photons**: Individual particles, or quanta, of light can be used as the basic building blocks of a quantum computer. 
-* **Superconducting circuits**:
-* **Spins**
+* **Superconducting circuits**: These use superconducting materials to create qubits. Superconducting qubits are one of the most advanced and widely researched types of qubits, with companies like IBM and Google making significant progress in this area.
+* **Spins**: Spin-based quantum computers use the spin of electrons or nuclei as qubits. This approach can leverage existing semiconductor technology, making it a promising direction for scalable quantum computing.
 
-### Digital vs. analog quantum computing
-
+Each of these approaches has its own set of advantages and challenges, and research is ongoing to determine which will be the most practical and effective for large-scale quantum computing.
 
 
 ## Ion trap quantum computers
@@ -28,67 +23,15 @@ Some of the most popular directions that are being pursued include:
 * Preparing and measuring the ions can be done to a very high degree of fidelity.
 * Trapped ion quantum devices can be made to have *all-to-all* connectivity. Other architectures are limited in which qubits can interact with which other qubits, often due to the physical layout of the device. Trapped ions can overcome this limitation, as the ions can be made to move, or 'shake', coupled with other ions in very controlled ways. 
 
-![trapped-ion](img/ion-trap-connected.png)
-![trap-design](img/simplified-hardware-stack.png)
+<!-- ![trapped-ion](img/ion-trap-connected.png) -->
+<!-- ![trap-design](img/simplified-hardware-stack.png) -->
 
 Layers of trapped ion quantum computer include:
 * Vacuum chamber to trap ions
-* Radiofrequency probes to provide the trapping potential
-* 
+* Radiofrequency electrical probes to provide the trapping potential
 * Laser system to control ions in the trap, including addressing the ions individually
-* Timing electronics 
-
-
-## Controlling a trapped ion quantum computer
-
-## Real-time control
-Trapped ions are addressed through optical laser pulses that address atomic transitions of the ions.
-A set of tunable laser beams pass through the ion trap such that they are incident on the ions.
-The intensity, polarization, and frequency of each of these beams is finely controlled in real-time (with μs resolution).
-
-### Pulse languages
-
-
-### Digital circuit languages
-Abstracting away from the leve of optical and electronic pulses, 
-Quantum computers can be programmed at various levels of abstraction -- much like classical computers that range from machine code to high-level interpreted languages like Python.
-
-
-### Analog circuit languages
-
-
-
-## Applications
-
-### Analog quantum simulations
-Simulating a quantum system is important in many domains of physics and chemistry.
-Use cases range from developing better battery materials, 
-
-### Digital algorithms
-* Factoring algorithms
-* Unstructured database search
-* 
-
-### 
-
-## Survey of the commercial landscape field
-* **Trapped ion**: Quantinuum, IonQ, Alpine Quantum Technologies, 
-* **Neutral atoms**: Pasqal, Quera,
-* **Superconducting circuits**: Google Quantum AI, IBM Quantum, Rigetti, DWave, Diraq
-* **Photons**: Xanadu, Quandela, 
-* **Others**: Photonic Inc., 
-
-## Open source quantum technologies
-A variety of open source projects have emerged with quantum technologies. [4]
-
-### Open software
-
-
-### Open hardware
-
-
-### User test facilities
-
+* Real-time electronics control system
+* Software stack enabling users to program the quantum computer
 
 
 ## References
@@ -96,4 +39,3 @@ A variety of open source projects have emerged with quantum technologies. [4]
 * [2] Pogorelov, I. et al. Compact Ion-Trap Quantum Computing Demonstrator. PRX Quantum 2, 020343 (2021).
 * [3] Blatt, R. & Wineland, D. Entangled states of trapped atomic ions. Nature 453, 1008–1015 (2008).
 * [4] Shammah, N. et al. Open Hardware in Quantum Technology. Preprint at https://doi.org/10.48550/arXiv.2309.17233 (2023).
-

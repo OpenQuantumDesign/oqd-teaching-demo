@@ -1,3 +1,18 @@
+# Copyright 2024-2025 Open Quantum Design
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from pydantic import BaseModel
 from gpiozero import PWMLED
 import time
@@ -14,7 +29,6 @@ class LaserArray(BaseModel):
     def set_intensities(self, intensities: list):
         for j, channel in enumerate(self.channels):
             self.set_intensity(idx=j, intensity=intensities[j])
-                # self._lasers[channel].value = intensities[j]
 
     def set_intensity(self, idx: int, intensity: float):
         self._lasers[self.channels[idx]].value = intensity
@@ -47,7 +61,6 @@ class LaserArray(BaseModel):
 
 
 class RedLasers(LaserArray):
-    # channels: list[int] = [5, 6, 13, 19, 26]
     channels: list[int] = [5, 6, 19, 26]
 
 
@@ -60,14 +73,8 @@ class BlueLaser(LaserArray):
 
 
 if __name__ == "__main__":
-
-    # lasers = BlueLaser()
-    # lasers.set_intensity(idx=0, intensity=0.0)
-
     ts = np.arange(100)
-    # intensities =  0.5 * (np.sin(ts) + 1)
     dt = 0.15
-        
     lasers = RedLasers()
 
     intensities = np.stack(
