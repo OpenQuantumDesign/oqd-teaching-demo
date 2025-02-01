@@ -1,4 +1,4 @@
-site_name: "Open Quantum Design - Outreach Demo"
+site_name: "Open Quantum Design - Outreach"
 
 repo_name: OpenQuantumDesign/outreach
 repo_url: https://github.com/OpenQuantumDesign/outreach
@@ -17,14 +17,9 @@ extra:
       name: Open Quantum Design
 
 nav:
-  - Get Started:
-      - Welcome!: index.md
-  - Building your own demo:
-      - Introduction: explanation/introduction.md
-      - 3D Printing: explanation/3dprint.md
-      - Electronics: explanation/electronics.md
-      - Software: explanation/software.md
-      - Assembly: explanation/assembly.md
+  - Welcome!: index.md
+  - Building your own demo: assembly.md
+  - Materials: materials.md
 
 theme:
   name: material

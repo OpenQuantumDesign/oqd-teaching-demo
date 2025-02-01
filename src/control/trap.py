@@ -1,9 +1,21 @@
+# Copyright 2024-2025 Open Quantum Design
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#     http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 from pydantic import BaseModel
-from gpiozero import LED, PWMLED
 import time
 import lgpio as gpio
-# import rgpio as gpio
-import atexit
 from typing import Literal
 
 
@@ -15,37 +27,13 @@ class Trap(BaseModel):
     duty: float = 50
 
     def model_post_init(self, _context=None):
-        # self._pin_left = LED(self.pin_left)
-        # self._pin_left =  PWMLED(self.pin_left, active_high=False, frequency=0.5, initial_value=1)
-        # self._pin_right = LED(self.pin_right)
-        # self._pin_right =  PWMLED(self.pin_right, active_high=False, frequency=0.5, initial_value=1)
-        # self._pin_reset = LED(self.pin_reset)
-        # self._pin_left.off()
-        # self._pin_right.off()
-        # self._pin_reset.off()
-        # self.off()
+        self._h = gpio.gpiochip_open(0)  # Pi's main gpiochip
 
-        # sbc = gpio.sbc()
-        # self._h = sbc.gpiochip_open(0) # Pi's main gpiochip
-        self._h = gpio.gpiochip_open(0) # Pi's main gpiochip
-
-        gpio.gpio_claim_output(self._h, self.pin_reset) # claim G1 of gpiochip
-        gpio.gpio_claim_output(self._h, self.pin_left) # claim G1 of gpiochip
+        gpio.gpio_claim_output(self._h, self.pin_reset)  # claim G1 of gpiochip
+        gpio.gpio_claim_output(self._h, self.pin_left)  # claim G1 of gpiochip
         gpio.gpio_claim_output(self._h, self.pin_right, lFlags=gpio.SET_ACTIVE_LOW)
 
         gpio.gpio_write(self._h, self.pin_reset, 1)
-
-
-    # def reset(self):
-    #     self._pin_reset.off()
-    #     time.sleep(0.1)
-    #     self._pin_reset.on()
-
-    # def off(self):
-    #     self._pin_left.off()
-    #     self._pin_right.on()
-    #     # for pin in [self._pin_left, self._pin_right, self._pin_reset]:
-    #         # pin.on()
 
     def left(self):
         gpio.gpio_write(self._h, self.pin_left, 1)
@@ -58,7 +46,7 @@ class Trap(BaseModel):
     def stop(self):
         gpio.gpio_write(self._h, self.pin_right, 0)
         gpio.gpio_write(self._h, self.pin_left, 1)
-        
+
     def shake(self):
         """
         Shakes the trap positions in a sawtooth motion, with a period of `Trap.period`.
@@ -68,7 +56,7 @@ class Trap(BaseModel):
         gpio.tx_pwm(self._h, self.pin_left, self.frequency, self.duty)
         gpio.tx_pwm(self._h, self.pin_right, self.frequency, self.duty)
 
-    def mode(self, mode: Literal['left', 'right', 'shake', 'stop']):
+    def mode(self, mode: Literal["left", "right", "shake", "stop"]):
         if mode == "left":
             self.left()
         elif mode == "right":
@@ -81,24 +69,16 @@ class Trap(BaseModel):
             pass
 
     def close(self):
-        # self._h.stop()
-        # self.left()
-        # self.right()
         gpio.gpio_write(self._h, self.pin_right, 0)
         time.sleep(0.05)
         gpio.gpio_write(self._h, self.pin_left, 1)
         time.sleep(0.05)
-        
-
-
 
 
 if __name__ == "__main__":
     trap = Trap()
-    # trap.shake()
-    # trap.right()
     trap.left()
-    
+
     input()
     trap.right()
 
@@ -107,4 +87,3 @@ if __name__ == "__main__":
 
     input()
     trap.close()
-    
