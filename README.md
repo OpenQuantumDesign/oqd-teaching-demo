@@ -1,7 +1,7 @@
 # ![Open Quantum Design](https://raw.githubusercontent.com/OpenQuantumDesign/oqd-core/main/docs/img/oqd-logo-text.png)
 
 <h2 align="center">
-    Open Quantum Design: Full-stack Trapped-ion Demo  
+    Open Quantum Design: Full-stack Trapped-ion Teaching Demo  
 </h2>
 
 > [!NOTE]
