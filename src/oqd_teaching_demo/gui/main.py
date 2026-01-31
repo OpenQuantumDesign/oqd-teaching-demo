@@ -11,11 +11,10 @@ MOCK = True
 
 if MOCK:
     from oqd_teaching_demo.control.mock import MockDevice as Device
+    stream_ip = 'docs/img/bloodstone.jpg'
 else:
     from oqd_teaching_demo.control.device import Device as Device
-    
-
-stream_ip = 'http://127.0.0.1:5000/stream'
+    stream_ip = 'http://127.0.0.1:5000/stream'
 
 class Board:
     _instance = None
