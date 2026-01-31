@@ -15,7 +15,7 @@
 
 import numpy as np
 
-from src import Program
+from oqd_teaching_demo.program import Program
 
 
 def digital_simple():

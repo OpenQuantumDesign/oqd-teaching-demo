@@ -5,6 +5,7 @@ import sys
 import logging
 
 from oqd_teaching_demo.program import Program
+from oqd_teaching_demo.gui.programs import digital_shor, digital_random, analog_ising, analog_all_to_all
 
 # For development & testing (i.e., unitaryDESIGN participants!), set this MOCK = True
 MOCK = True
