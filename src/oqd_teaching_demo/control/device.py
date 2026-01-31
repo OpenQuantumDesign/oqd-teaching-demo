@@ -16,8 +16,8 @@
 from pydantic import BaseModel, Field
 import time
 
-from src import Trap
-from src import BlueLaser, RedLasers
+from oqd_teaching_demo.control.trap import Trap
+from oqd_teaching_demo.control.lasers import BlueLaser, RedLasers
 
 import threading
 
@@ -68,3 +68,5 @@ if __name__ == "__main__":
     device = Device()
     device.trap.stop()
     device.run(program=program)
+
+

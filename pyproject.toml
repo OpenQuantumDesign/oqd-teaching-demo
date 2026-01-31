@@ -4,19 +4,24 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "pancake"
+name = "oqd-teaching-demo"
 version = "0.0.0"
 requires-python = ">=3.9"
 dependencies = [
-#    "numpy",
-#    "PySide6",
-#    "pydantic",
-#    "gpiozero",
-#    "lgpio",
-#    "pyqtgraph",
-#    "pillow",
+    "numpy",
+    "pydantic",
+    "nicegui",
+    "flask",
 ]
+
+
 [project.optional-dependencies]
+hardware = [
+    "gpiozero",
+    "lgpio",
+    "picamera2"
+]
+
 docs = [
     "pymdown-extensions",
     "mkdocstrings",
@@ -26,4 +31,4 @@ docs = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["pancake"]
+include = ["oqd_teaching_demo"]
