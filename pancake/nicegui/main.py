@@ -11,6 +11,8 @@ from pancake.nicegui.programs import *
 from pancake.program import Program
 
 
+stream_ip = 'http://127.0.0.1:5000/stream'
+
 class Board:
     _instance = None
 
@@ -92,7 +94,7 @@ def control_card(board: Board):
 
 
             with ui.card().classes('w-full'):
-                ui.image('http://172.31.60.59:5000/stream')#.classes('w-full h-auto')
+                ui.image(stream_ip)#.classes('w-full h-auto')
 
         return control_dialog
 
@@ -117,7 +119,7 @@ def digital_card(board: Board):
 
 
             with ui.card().classes('w-full'):
-                ui.image('http://172.31.60.59:5000/stream')
+                ui.image(stream_ip)
 
     return digital_dialog
     
@@ -131,7 +133,7 @@ def analog_card(board: Board):
 
 
             with ui.card().classes('w-full'):
-                ui.image('http://172.31.60.59:5000/stream')
+                ui.image(stream_ip)
 
     return analog_dialog
 
