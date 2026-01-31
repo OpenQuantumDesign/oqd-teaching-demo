@@ -5,8 +5,15 @@ import sys
 import logging
 
 from oqd_teaching_demo.program import Program
-from oqd_teaching_demo.control.device import Device
 
+# For development & testing (i.e., unitaryDESIGN participants!), set this MOCK = True
+MOCK = True
+
+if MOCK:
+    from oqd_teaching_demo.control.mock import MockDevice as Device
+else:
+    from oqd_teaching_demo.control.device import Device as Device
+    
 
 stream_ip = 'http://127.0.0.1:5000/stream'
 
@@ -28,21 +35,6 @@ class Board:
 
     def cleanup(self):
         return
-        # self.device.close()
-
-# class DeviceThread(QThread):
-#     task_done_signal = Signal()
-
-#     def __init__(self, device: Device):
-#         super().__init__()
-#         self.device = device
-
-#     def run(self):
-#         # This will be executed in a separate thread
-#         program = programs['test']  # todo: figure out how to pass in the program object
-#         self.device.run(program=program)
-#         self.task_done_signal.emit()
-
 
 
 def control_card(board: Board):
@@ -97,23 +89,12 @@ def control_card(board: Board):
 
 
 
-# def run(program: Program):
-    # DeviceThread
-
-
 def digital_card(board: Board):
     with ui.dialog() as digital_dialog, ui.card():
-        # ui.label('Digital').style('color: #6E93D6; font-size: 200%; font-weight: 300')
         with ui.row().classes('fixed-center'):
             with ui.list():
                 ui.button("Shor's Algorithm", on_click=lambda: board.device.run(digital_shor())).props('border p-33')
                 ui.button("Random Circuit", on_click=lambda: board.device.run(digital_random())).props('border p-3')
-
-            # ui.button('Stop', on_click=lambda: board.device.stop())
-
-            # with ui.card():
-            #     ui.button('Stop', on_click=lambda: board.device.stop())
-
 
             with ui.card().classes('w-full'):
                 ui.image(stream_ip)
@@ -146,10 +127,6 @@ def main():
     digital_dialog = digital_card(board)
     analog_dialog = analog_card(board)
 
-
-
-    # with ui.image('oqd-logo-text.png'):
-    # with ui.image("https://github.com/OpenQuantumDesign/equilux/blob/9ed0c5380133e7d135121c44c3f4cdbcb8cf781b/docs/img/oqd-logo.png?raw=true"):
     with ui.column():
         with ui.row().classes('fixed-center'):
             ui.button('Control Panel', on_click=control_dialog.open)
