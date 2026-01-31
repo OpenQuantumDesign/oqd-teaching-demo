@@ -5,7 +5,7 @@ import sys
 import logging
 
 from oqd_teaching_demo.program import Program
-from oqd_teaching_demo.control import Device
+from oqd_teaching_demo.control.device import Device
 
 
 stream_ip = 'http://127.0.0.1:5000/stream'

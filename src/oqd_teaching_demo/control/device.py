@@ -18,6 +18,7 @@ import time
 
 from oqd_teaching_demo.control.trap import Trap
 from oqd_teaching_demo.control.lasers import BlueLaser, RedLasers
+from oqd_teaching_demo.program import Program 
 
 import threading
 
