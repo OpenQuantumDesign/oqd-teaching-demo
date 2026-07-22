@@ -121,6 +121,7 @@ def main():
             ui.button('Control Panel', on_click=control_dialog.open)
             ui.button('Digital Interface', on_click=digital_dialog.open)
             ui.button('Analog Interface', on_click=analog_dialog.open)
+            ui.button('Quantum Playground', on_click=circuit_dialog.open).props('color=purple')
 
         ui.image("https://github.com/OpenQuantumDesign/equilux/blob/9ed0c5380133e7d135121c44c3f4cdbcb8cf781b/docs/img/oqd-logo.png?raw=true").classes("w-32 h-32")
 

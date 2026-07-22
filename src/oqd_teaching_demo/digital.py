@@ -15,7 +15,7 @@
 
 from typing import List, Literal, Union
 
-from pydantic import BaseModel, root_validator, NonNegativeInt
+from pydantic import BaseModel, Field, model_validator, NonNegativeInt
 
 ########################################################################################
 
@@ -34,25 +34,25 @@ class BinaryGate(BaseModel):
     control: NonNegativeInt
     target: NonNegativeInt
 
-    @root_validator
-    def consistency_check(cls, values):
-        if values["control"] == values["target"]:
+    @model_validator(mode="after")
+    def consistency_check(self):
+        if self.control == self.target:
             raise ValueError("Inconsistency: target equals control")
-        return values
+        return self
 
 
 class Circuit(BaseModel):
-    N: Literal[5] = 5
+    N: int = Field(default=4, ge=1, le=8)
     instructions: List[Union[UnaryGate, BinaryGate]]
 
-    @root_validator
-    def consistency_check(cls, values):
-        for gate in values["instructions"]:
-            if gate.target >= values["N"]:
+    @model_validator(mode="after")
+    def consistency_check(self):
+        for gate in self.instructions:
+            if gate.target >= self.N:
                 raise ValueError("Inconsistency: target exceeds N")
-            if isinstance(gate, BinaryGate) and gate.control >= values["N"]:
+            if isinstance(gate, BinaryGate) and gate.control >= self.N:
                 raise ValueError("Inconsistency: control exceeds N")
-        return values
+        return self
 
 
 class Program(BaseModel):
