@@ -8,6 +8,7 @@ import logging
 from oqd_teaching_demo.program import Program
 from oqd_teaching_demo.gui.programs import digital_shor, digital_random
 from oqd_teaching_demo.gui.analog_builder import analog_builder_card
+from oqd_teaching_demo.gui.circuit_builder import circuit_builder_card
 
 # Defaults to real hardware. For development & testing off the physical unit
 # (i.e., unitaryDESIGN participants!), run with OQD_MOCK=1 to use MockDevice instead.
@@ -115,6 +116,7 @@ def main():
     control_dialog = control_card(board)
     digital_dialog = digital_card(board)
     analog_dialog = analog_builder_card(board, stream_ip)
+    circuit_dialog = circuit_builder_card(board, stream_ip)
 
     with ui.column():
         with ui.row().classes('fixed-center'):
