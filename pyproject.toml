@@ -12,6 +12,7 @@ dependencies = [
     "pydantic",
     "nicegui",
     "flask",
+    "httpx",
     "oqd-core",
 ]
 

@@ -1,4 +1,6 @@
-from nicegui import ui
+from nicegui import ui, app
+import httpx
+from fastapi.responses import StreamingResponse
 import threading
 import atexit
 import os
@@ -19,7 +21,24 @@ if MOCK:
     stream_ip = 'docs/img/bloodstone.jpg'
 else:
     from oqd_teaching_demo.control.device import Device as Device
-    stream_ip = 'http://127.0.0.1:5000/stream'
+    # Proxied through this same server (see /camera-stream below) so viewers
+    # only ever need to reach this one port, regardless of how they got here
+    # (touchscreen, LAN, SSH-forwarded port, etc.) - camera_stream.py on :5000
+    # is only ever fetched server-side, from this machine to itself.
+    stream_ip = '/camera-stream'
+
+    CAMERA_STREAM_URL = 'http://127.0.0.1:5000/stream'
+
+    @app.get('/camera-stream')
+    async def camera_stream():
+        async def proxy():
+            async with httpx.AsyncClient(timeout=None) as client:
+                async with client.stream('GET', CAMERA_STREAM_URL) as upstream:
+                    async for chunk in upstream.aiter_bytes():
+                        yield chunk
+
+        # must match the mimetype camera_stream.py's Flask app declares
+        return StreamingResponse(proxy(), media_type='multipart/x-mixed-replace; boundary=frame')
 
 class Board:
     _instance = None
